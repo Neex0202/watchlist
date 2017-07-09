@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Watchlist</title>
     <!-- Latest compiled and minified CSS & JS -->
@@ -7,9 +8,35 @@
     <link rel="stylesheet" href="css/style.css" media="screen" title="no title">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	<title>Watchlist-Movies</title>
+    <title>Watchlist-Movies</title>
 </head>
-<body>
 
+<body>
+    <h2>Movies</h2>
+    <div class="container-fluid">
+        <!-- Dropdown Menu NEED TO ALIGN LISTED ITEMS CENTER-->
+        <div class="dropdown">
+            <button id="dropmenu" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Categories
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#">What to Watch</a></li>
+                <li><a href="#">Currently Watching</a></li>
+                <li><a href="#">Finished Watching</a></li>
+            </ul>
+        </div>
+
+        <!-- DIV PANEL for each LISTED ITEM -->
+        <div class="future">
+            
+            <div class="panel panel-default">
+                <div class="panel-heading">Panel Heading</div>
+                <div class="panel-body">Panel Content</div>
+            </div>
+        </div>
+
+
+
+    </div>
 </body>
+
 </html>
