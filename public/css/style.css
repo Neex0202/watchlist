@@ -11,11 +11,23 @@ h1 {
     kerning: 5px;
     letter-spacing: 5px;
     margin-top: 250px;
-    font
+    
 
 
 }
 
+h2 {
+
+    text-shadow: 8px 8px black;
+    color: white;
+    font-family: impact;
+    text-align: center;
+    font-size: 60px;
+    kerning: 5px;
+    letter-spacing: 5px;
+    margin-top: 50px;
+    
+}
 
 
 #movie{
@@ -24,7 +36,6 @@ h1 {
 	left: 40%;
 	margin-top: 35px;
 	margin-right: 25px;
-
 
 }
 
@@ -36,3 +47,29 @@ h1 {
 	margin-left: 25px;
 
 }
+
+/*Movies & Series Page*/
+#dropmenu{
+	position: relative;
+	align-self: center;
+	/*left:40%;*/
+}
+.dropdown {
+    text-align: center;
+}
+
+.button {
+    position: absolute;
+    top: 50%;
+}
+
+.panel{
+	margin-top: 15px;
+}
+
+ul{
+	position: absolute;
+	text-align: center;
+}
+
+
