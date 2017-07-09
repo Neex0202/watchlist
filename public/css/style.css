@@ -1,0 +1,38 @@
+body {
+	background: red;
+}
+
+h1 {
+    text-shadow: 15px 15px black;
+    color: white;
+    font-family: impact;
+    text-align: center;
+    font-size: 128px;
+    kerning: 5px;
+    letter-spacing: 5px;
+    margin-top: 250px;
+    font
+
+
+}
+
+
+
+#movie{
+	position: relative;
+	top: 50%;
+	left: 40%;
+	margin-top: 35px;
+	margin-right: 25px;
+
+
+}
+
+#series{
+	position: relative;
+	top: 50%;
+	left: 40%;
+	margin-top: 35px;
+	margin-left: 25px;
+
+}
