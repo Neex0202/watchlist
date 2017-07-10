@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Watchlist</title>
-    <!-- Latest compiled and minified CSS & JS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css" media="screen" title="no title">
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <title>Watchlist-Movies</title>
+   <meta charset="UTF-8">
+   <title>Watchlist</title>
+   <script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>
+
+   <!-- Latest compiled and minified CSS -->
+   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet">
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="css/reset.css">
+   <link rel="stylesheet" href="css/style.css" media="screen" title="no title">
 </head>
 
 <body>
@@ -25,32 +29,88 @@
             </ul>
         </div>
 
-<!-- Button to trigger Modal -->
-<input type="button" class="btn btn-info" value="Input Button">
-<div id="openModal" class="modalDialog">
-    <div>
-        <a href="#close" title="Close" class="close">X</a>
-        <h2>
-            Modal Box</h2>
-        <p>
-            Hello world</p>
-    </div>
-</div>
 
+      <button id="addMovie" type="button" class="btn btn-info">Search Movies</button>
 
+   <!-- DIV PANEL for each FUTURE -->
+    <div class="row">
+        <div class= "col-xs-12">
 
-        <!-- DIV PANEL for each LISTED ITEM -->
         <div class="future">
             
             <div class="panel panel-default">
-                <div class="panel-heading">Panel Heading</div>
-                <div class="panel-body">Panel Content</div>
+                <div class="panel-heading">
+                  <h3 class="panel-title">Future</h3>
+                </div>
+                <div class="panel-body" class="futureBody"></div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+   <!-- DIV PANEL for each CURRENT -->
+    <div class="row">
+        <div class= "col-xs-12">
+        <div class="current">
+            
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Current</h3>
+                </div>
+                <div class="panel-body" class="currentBody"></div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class= "col-xs-12">
+             <!-- DIV PANEL for each FINISHED ITEM -->
+        <div class="finished">
+            
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Finished</h3>
+                </div>
+                <div class="panel-body" class="finishedBody"></div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+      <div class="modal fade" id="modelWindow" role="dialog">
+            <div class="modal-dialog modal-lg vertical-align-center">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Add a Movie</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="movie-form">
+                       <div class="form-group">
+                         <label for="searchMovie">Enter a Movie Name</label>
+                         <input class="form-control" id="searchMovie">
+                         <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                       </div>
+                    </form>
+
+               <div class="searchContainer">
+                  
+               </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" data-dismiss="modal" class="btn btn-default" id="modalSubmit">Submit</button>
+                </div>
+              </div>
             </div>
         </div>
 
-
-
     </div>
+
+  <script src="js/movies.js" type="text/javascript"></script>
 </body>
 
 </html>

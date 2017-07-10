@@ -9,6 +9,7 @@ var PORT = process.env.PORT || 9000;
 
 //Requiring models for sync
 var db = require("./models");
+var imdb = require("imdb-api");
 
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.json());
@@ -23,7 +24,7 @@ app.use(express.static("./public"));
 // =============================================================
 require("./routes/api-routes.js")(app);
 require("./routes/html-routes.js")(app);
-require("./routes/imdb-api-routes.js")(app);
+require("./routes/imdb-routes.js")(app);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
