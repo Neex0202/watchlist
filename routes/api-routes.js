@@ -1,4 +1,5 @@
-var db= require('../models');
+
+var db = require('../models');
 
 var imdb = require('imdb-api');
 

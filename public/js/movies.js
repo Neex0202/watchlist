@@ -128,8 +128,10 @@ $(document).ready(function(){
 						submitPost(newMovie); 
 					} 
 
-					function submitPost(Post) {
-						$.post("/api/movies", Post);
+					function submitMovie(Movie) {
+						$.post("/api/movies", Movie, function() {
+							window.location.href = "/movies";
+						});
 					}
 
 				} // handleSubmit 
