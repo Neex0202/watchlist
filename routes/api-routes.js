@@ -12,8 +12,6 @@ app.get('/api/movies/', function(req, res){
 	})
 });
 
-
-
 }
 
 

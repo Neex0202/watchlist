@@ -1,29 +1,23 @@
 $(document).ready(function(){
 
 	var searchContainer= $('.searchContainer');
-	var futureContainer=  $('.futureBody')
-	var currentContainer=  $('.currentBody')
-	var finishedContainer=  $('.finishedBody')
-	
-	
-
-	// var imdb= require('')
+	var futureContainer=  $('.futureBody');
+	var currentContainer=  $('.currentBody');
+	var finishedContainer=  $('.finishedBody');
+	var chosenContainer= $(".chosenContainer");
+	var chosenTitle= $(".chosenTitle"); 
+	var chosenCategory= $(".chosenCategory");
+	var chosenNotes= $(".chosenNotes");
 
 	$('#addMovie').on("click", function() {
 	   $('#modelWindow').modal('show');
 	});
 
-	$("#movie-form").on("submit", handleMovieFormSubmit);
-	
+	$("#searchTop").on("click", handleMovieFormSubmit); 
 
-	$("#modalSubmit").on("click", handleMovieFormSubmit);
+	// $("#movie-form").on("submit", handleMovieFormSubmit);
 
-	function handleMovieFormSubmit(event) {
-		event.preventDefault();
-		//search movie ajax function
-		var searchMovie = $("#searchMovie").val().trim();
-		movieSearch(searchMovie);
-	}
+	// $("#modalSubmit").on("click", handleMovieFormSubmit);
 
 	$(".deleteButton").on("click", function(){
 
@@ -31,32 +25,90 @@ $(document).ready(function(){
 
 	$(".updateButton").on("click", function(){
 
-	});
-
+	}); 
 
 	function movieSearch(searchMovie){
-		console.log("sdjasjkdkaskjdh")
 		$.ajax({
 			method: 'GET',
 			url: '/imdb-search/' + searchMovie
 		}).done(function(data){
 			console.log(data.results);
 
-			for(var i=0; i<data.length; i++){
-				
+			var results = data.results; 
+			searchContainer.empty(); 
+			var topSearch = []; 
+
+			for (var i = 0; i < results.length; i++) {
+				topSearch.push(createSearchContainer(results[i])); 
 			}
-		})
+			searchContainer.append(topSearch); 
 
-	//populate modal with movies
-	//capture the title and imdb and store it on the html
-	//each result should have a check box
+			function createSearchContainer() {
+				var topSearchDiv = $("<div>");
+				topSearchDiv.addClass("panel panel-default");
+				var newSearchbody = $("<div>");
+				newSearchbody.addClass("panel-body"); 
+				var newImg = $("<img src = " + results[i].poster + " alt= 'poster' height= '200px' width= '100px'>");
+				newSearchbody.append(newImg); 
+				var newTitle = $("<h3>"); 
+				newTitle.text(results[i].title); 
+				newSearchbody.append(newTitle); 
+				var newYear = $("<p>"); 
+				newYear.text(results[i].year); 
+				newSearchbody.append(newYear);  
 
+				var addBtn = $("<button>"); 
+				addBtn.text("Add"); 
+				addBtn.addClass("add"); 
+				newSearchbody.append(addBtn); 
+				topSearchDiv.append(newSearchbody);
 
-	//take the data and pass it into models
-	//we then put it into out database
-		
-	}
+				topSearchDiv.data("results", results[i]); 
+				return topSearchDiv; 
 
+			}; //createSearchContainer
+
+			$(".add").on("click", handleAdd);
+
+			function handleAdd(event) {
+				var currentPosition = $(this)
+					.parent()
+					.parent()
+					.data("results")
+				$(".searchContainer").hide(); 
+				$(".chosenTitle").append("<b>Title: </b>");
+				$(".chosenTitle").append("<br><b>" + currentPosition.title + "</b>");
+
+				var newForm = $("<form>"); 
+				var newFormClass = $("<div>").addClass("form-group");
+				var label = $("<label for= 'category' >Select Catagory:</label>"); 
+				var dropDown = $("<select class='form-control' id='category'>"); 
+				var option = $("<option value='future'>What to Watch</option><option value='current'>Currently Watching</option><option value='finished'>Finished Watching</option>"); 
+
+				dropDown.append(option); 
+				label.append(dropDown); 
+				newFormClass.append(label); 
+				newForm.append(newFormClass); 
+				chosenCategory.append(newForm); 
+
+				var newFormClass2 = $("<div>").addClass("form-group");
+				var label2 = $("<label for= 'notes' >Notes:</label>"); 
+				var textarea = $("<textarea rows='4' id='notes'></textarea>").addClass("form-control"); 
+
+				label2.append(textarea); 
+				newFormClass2.append(label2); 
+				chosenNotes.append(newFormClass2); 
+
+			} // handleAdd
+
+		}); 
+	}; //end movieSearch 
+
+	function handleMovieFormSubmit(event) {
+		event.preventDefault();
+		var searchMovie = $("#searchMovie").val().trim();
+		movieSearch(searchMovie);
+	}; //handleMovieFormSubmit
 
 });
 
