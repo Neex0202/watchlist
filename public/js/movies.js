@@ -13,11 +13,7 @@ $(document).ready(function(){
 	   $('#modelWindow').modal('show');
 	});
 
-	$("#searchTop").on("click", handleMovieFormSubmit); 
-
-	// $("#movie-form").on("submit", handleMovieFormSubmit);
-
-	// $("#modalSubmit").on("click", handleMovieFormSubmit);
+	$("#searchTop").on("click", handleMovieFormSearch); 
 
 	$(".deleteButton").on("click", function(){
 
@@ -71,6 +67,7 @@ $(document).ready(function(){
 			$(".add").on("click", handleAdd);
 
 			function handleAdd(event) {
+				event.preventDefault(); 
 				var currentPosition = $(this)
 					.parent()
 					.parent()
@@ -79,6 +76,7 @@ $(document).ready(function(){
 				$(".chosenTitle").append("<b>Title: </b>");
 				$(".chosenTitle").append("<br><b>" + currentPosition.title + "</b>");
 
+				//DOM for category
 				var newForm = $("<form>"); 
 				var newFormClass = $("<div>").addClass("form-group");
 				var label = $("<label for= 'category' >Select Catagory:</label>"); 
@@ -91,6 +89,7 @@ $(document).ready(function(){
 				newForm.append(newFormClass); 
 				chosenCategory.append(newForm); 
 
+				//DOM for notes
 				var newFormClass2 = $("<div>").addClass("form-group");
 				var label2 = $("<label for= 'notes' >Notes:</label>"); 
 				var textarea = $("<textarea rows='4' id='notes'></textarea>").addClass("form-control"); 
@@ -99,12 +98,50 @@ $(document).ready(function(){
 				newFormClass2.append(label2); 
 				chosenNotes.append(newFormClass2); 
 
+				//getting info for columns 
+				var thePoster = currentPosition.poster;
+				var theTitle = currentPosition.title;
+				var theIMDBID = currentPosition.imdbid
+				var theCategory = $("#category"); 
+				var theNotes = $("#notes"); 
+
+				$(".modal-footer").css("display", "block"); 
+
+				$("#modalSubmit").on("click", handleSubmit); 
+
+				function handleSubmit(event) {
+					event.preventDefault(); 
+
+					var newMovie = {
+						title: theTitle, 
+						category: theCategory.val(), 
+						notes: theNotes.val().trim(),
+						imdb_id: theIMDBID,
+						poster: thePoster
+					}; 
+
+					console.log(newMovie);
+
+					if (!theCategory.val() || !theNotes.val().trim()) {
+						return; 
+					} else {
+						submitPost(newMovie); 
+					} 
+
+					function submitMovie(Movie) {
+						$.post("/api/movies", Movie, function() {
+							window.location.href = "/movies";
+						});
+					}
+
+				} // handleSubmit 
+
 			} // handleAdd
 
 		}); 
 	}; //end movieSearch 
 
-	function handleMovieFormSubmit(event) {
+	function handleMovieFormSearch(event) {
 		event.preventDefault();
 		var searchMovie = $("#searchMovie").val().trim();
 		movieSearch(searchMovie);
