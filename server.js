@@ -3,6 +3,10 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 
+var path = require("path"); 
+var mysql = require("mysql"); 
+var mysql2 = require("mysql2");
+
 //Express App
 var app = express();
 var PORT = process.env.PORT || 9000;
@@ -28,7 +32,7 @@ require("./routes/imdb-routes.js")(app);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
-db.sequelize.sync({ force: true }).then(function() {
+db.sequelize.sync({}).then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });

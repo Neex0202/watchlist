@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes){
 	var Movies = sequelize.define("Movie", {
-		movie_name: {
+		title: {
 			type: DataTypes.STRING,
 			allowNull: false
 		},
@@ -19,10 +19,6 @@ module.exports = function(sequelize, DataTypes){
 		}, 
 		poster: {
 			type: DataTypes.STRING,
-			allowNull: false
-		},
-		date: {
-			type: DataTypes.DATE, 
 			allowNull: false
 		}
 
