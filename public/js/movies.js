@@ -41,7 +41,15 @@ $(document).ready(function(){
 			url: '/imdb-search/' + searchMovie
 		}).done(function(data){
 			console.log(data.results);
+
+			for(var i=0; i<data.length; i++){
+				
+			}
 		})
+
+	//populate modal with movies
+	//capture the title and imdb and store it on the html
+	//each result should have a check box
 
 
 	//take the data and pass it into models
