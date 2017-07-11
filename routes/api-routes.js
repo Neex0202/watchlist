@@ -5,42 +5,38 @@ var imdb = require('imdb-api');
 
 module.exports= function(app){
 
-
 	//route to handle imdb get movie request
-	app.get('/api/movies/', function(req, res){
-		db.Movies.findAll({}).then(function(data){
+	app.get('/api/movies', function(req, res){
+		console.log(db.Movie)
+		db.Movie.findAll({}).then(function(data){
+			console.log(data);
 			res.json(data);
 		})
 	});
 
 	app.post("/api/movies", function(req, res) {
-		db.Movies.create({
+		console.log(req.body);
+
+		// console.log("title: " + req.body.title);
+		// console.log("category:" + req.body.category)
+		// console.log("notes:" + req.body.notes)
+		// console.log("imdb_id" + req.body.imdb_id)
+		// console.log("poster:" + req.body.poster)
+
+		db.Movie.create({
+		
 			title: req.body.title,
 			category: req.body.category,
 			notes: req.body.notes,
 			imdb_id: req.body.imdb_id,
 			poster: req.body.poster
+			
 		}).then(function(data) {
-			res.json(data); 
-		}); 
+			
+			res.json(data);
+		}).catch(function(err){
+			console.log(err);
+		});
 	}); 
 
 }
-
-
-//click movies
-//goes to movies html page.
-//click button to add new movie..
-//modal pops up
-
-//search for a movie
-	//when on click, redirect to a new route that handles the get for imbdb API. 
-	//-.search npm
-	//-populates the modal/page of results from api
-	//-add movies button next to each movie result (this button has a data-value of the respeective movie ID and title)
-	//-when we click add movie button, 
-	//we store that movie into our database (using post and sequelize .create)
-//pick a movie, and add category + personal notes
-
-
-//front end js --- api(middle man) --database
