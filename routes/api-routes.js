@@ -5,12 +5,24 @@ var imdb = require('imdb-api');
 module.exports= function(app){
 
 
-//route to handle imdb get movie request
-app.get('/api/movies/', function(req, res){
-	db.Movies.findAll({}).then(function(data){
-		res.json(data);
-	})
-});
+	//route to handle imdb get movie request
+	app.get('/api/movies/', function(req, res){
+		db.Movies.findAll({}).then(function(data){
+			res.json(data);
+		})
+	});
+
+	app.post("/api/movies", function(req, res) {
+		db.Movies.create({
+			title: req.body.title,
+			category: req.body.category,
+			notes: req.body.notes,
+			imdb_id: req.body.imdb_id,
+			poster: req.body.poster
+		}).then(function(data) {
+			res.json(data); 
+		}); 
+	}); 
 
 }
 
