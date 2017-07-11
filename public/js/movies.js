@@ -4,7 +4,10 @@ $(document).ready(function(){
 	var futureContainer=  $('.futureBody');
 	var currentContainer=  $('.currentBody');
 	var finishedContainer=  $('.finishedBody');
-	var chosenContainer= $(".chosenContainer"); 
+	var chosenContainer= $(".chosenContainer");
+	var chosenTitle= $(".chosenTitle"); 
+	var chosenCategory= $(".chosenCategory");
+	var chosenNotes= $(".chosenNotes");
 
 	$('#addMovie').on("click", function() {
 	   $('#modelWindow').modal('show');
@@ -73,8 +76,30 @@ $(document).ready(function(){
 					.parent()
 					.data("results")
 				$(".searchContainer").hide(); 
-				$(".chosenContainer").text(currentPosition.title);
-			}
+				$(".chosenTitle").append("<b>Title: </b>");
+				$(".chosenTitle").append("<br><b>" + currentPosition.title + "</b>");
+
+				var newForm = $("<form>"); 
+				var newFormClass = $("<div>").addClass("form-group");
+				var label = $("<label for= 'category' >Select Catagory:</label>"); 
+				var dropDown = $("<select class='form-control' id='category'>"); 
+				var option = $("<option value='future'>What to Watch</option><option value='current'>Currently Watching</option><option value='finished'>Finished Watching</option>"); 
+
+				dropDown.append(option); 
+				label.append(dropDown); 
+				newFormClass.append(label); 
+				newForm.append(newFormClass); 
+				chosenCategory.append(newForm); 
+
+				var newFormClass2 = $("<div>").addClass("form-group");
+				var label2 = $("<label for= 'notes' >Notes:</label>"); 
+				var textarea = $("<textarea rows='4' id='notes'></textarea>").addClass("form-control"); 
+
+				label2.append(textarea); 
+				newFormClass2.append(label2); 
+				chosenNotes.append(newFormClass2); 
+
+			} // handleAdd
 
 		}); 
 	}; //end movieSearch 
