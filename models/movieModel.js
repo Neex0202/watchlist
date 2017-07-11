@@ -12,6 +12,18 @@ module.exports = function(sequelize, DataTypes){
 		notes: {
 			type: DataTypes.STRING,
 			allowNull: true
+		},
+		imdb_id: {
+			type: DataTypes.STRING,
+			allowNull: false
+		}, 
+		poster: {
+			type: DataTypes.STRING,
+			allowNull: false
+		},
+		date: {
+			type: DataTypes.DATE, 
+			allowNull: false
 		}
 
 	});
