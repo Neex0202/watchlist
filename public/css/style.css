@@ -72,4 +72,8 @@ ul{
 	text-align: center;
 }
 
+.modal-footer {
+    display: none;
+}
+
 
