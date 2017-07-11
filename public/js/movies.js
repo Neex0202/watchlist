@@ -4,7 +4,7 @@ $(document).ready(function(){
 	var futureContainer=  $('.futureBody');
 	var currentContainer=  $('.currentBody');
 	var finishedContainer=  $('.finishedBody');
-	var movies; 
+	var chosenContainer= $(".chosenContainer"); 
 
 	$('#addMovie').on("click", function() {
 	   $('#modelWindow').modal('show');
@@ -22,7 +22,7 @@ $(document).ready(function(){
 
 	$(".updateButton").on("click", function(){
 
-	});
+	}); 
 
 	function movieSearch(searchMovie){
 		$.ajax({
@@ -52,13 +52,29 @@ $(document).ready(function(){
 				newSearchbody.append(newTitle); 
 				var newYear = $("<p>"); 
 				newYear.text(results[i].year); 
-				newSearchbody.append(newYear); 
+				newSearchbody.append(newYear);  
+
 				var addBtn = $("<button>"); 
 				addBtn.text("Add"); 
+				addBtn.addClass("add"); 
 				newSearchbody.append(addBtn); 
 				topSearchDiv.append(newSearchbody);
+
+				topSearchDiv.data("results", results[i]); 
 				return topSearchDiv; 
+
 			}; //createSearchContainer
+
+			$(".add").on("click", handleAdd);
+
+			function handleAdd(event) {
+				var currentPosition = $(this)
+					.parent()
+					.parent()
+					.data("results")
+				$(".searchContainer").hide(); 
+				$(".chosenContainer").text(currentPosition.title);
+			}
 
 		}); 
 	}; //end movieSearch 
