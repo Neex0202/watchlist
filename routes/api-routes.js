@@ -24,7 +24,6 @@ module.exports= function(app){
 		// console.log("poster:" + req.body.poster)
 
 		db.Movie.create({
-		
 			title: req.body.title,
 			category: req.body.category,
 			notes: req.body.notes,
@@ -32,11 +31,9 @@ module.exports= function(app){
 			poster: req.body.poster
 			
 		}).then(function(data) {
-			
 			res.json(data);
 		}).catch(function(err){
 			console.log(err);
 		});
 	}); 
-
 }
