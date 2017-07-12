@@ -1,20 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Watchlist</title>
-    <!-- Latest compiled and minified CSS & JS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css" media="screen" title="no title">
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <title>Watchlist-Series</title>
+   <meta charset="UTF-8">
+   <title>Watchlist</title>
+   <script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>
+
+   <!-- Latest compiled and minified CSS -->
+   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet">
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="css/reset.css">
+   <link rel="stylesheet" href="css/style.css" media="screen" title="no title">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
+
 <body>
     <h2 class="animated bounce">Series</h2>
     <div class="container-fluid">
 
       <button id="addMovie" type="button" class="btn btn-info">Search Series</button>
-    </div>
+
    <!-- DIV PANEL for each FUTURE -->
     <div class="row">
         <div class= "col-xs-12">
@@ -23,14 +30,18 @@
             
             <div class="panel panel-default">
                 <div class="panel-heading">
-                  <h3 class="panel-title">Future</h3>
+                  <h3 class="panel-title">What to Watch</h3>
                 </div>
-                <div class="panel-body" class="futureBody"></div>
+                <div class="panel-body futureBody">
+      
+                </div>
             </div>
         </div>
         </div>
     </div>
 
+
+   <!-- DIV PANEL for each CURRENT -->
     <div class="row">
         <div class= "col-xs-12">
         <div class="current">
@@ -39,7 +50,7 @@
                 <div class="panel-heading">
                   <h3 class="panel-title">Currently Watching</h3>
                 </div>
-                <div class="panel-body" class="currentBody"></div>
+                <div class="panel-body currentBody"></div>
             </div>
         </div>
         </div>
@@ -47,13 +58,16 @@
 
     <div class="row">
         <div class= "col-xs-12">
+
         <div class="notCaughtUp">
             
             <div class="panel panel-default">
                 <div class="panel-heading">
                   <h3 class="panel-title">Not Caught Up</h3>
                 </div>
-                <div class="panel-body" class="notCaughtUpBody"></div>
+                <div class="panel-body notCaughtUpBody">
+      
+                </div>
             </div>
         </div>
         </div>
@@ -61,17 +75,21 @@
 
     <div class="row">
         <div class= "col-xs-12">
+
         <div class="caughtUp">
             
             <div class="panel panel-default">
                 <div class="panel-heading">
                   <h3 class="panel-title">Caught Up</h3>
                 </div>
-                <div class="panel-body" class="caughtUpBody"></div>
+                <div class="panel-body caughtUpBody">
+      
+                </div>
             </div>
         </div>
         </div>
     </div>
+
 
     <div class="row">
         <div class= "col-xs-12">
@@ -82,13 +100,13 @@
                 <div class="panel-heading">
                   <h3 class="panel-title">Finished</h3>
                 </div>
-                <div class="panel-body" class="finishedBody"></div>
+                <div class="panel-body finishedBody"></div>
             </div>
         </div>
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal for search results -->
       <div class="modal fade" id="modelWindow" role="dialog">
             <div class="modal-dialog modal-lg vertical-align-center">
               <div class="modal-content">
@@ -99,8 +117,8 @@
                 <div class="modal-body">
                     <form id="movie-form">
                        <div class="form-group">
-                         <label for="searchSeries">Enter a Series Name</label>
-                         <input class="form-control" id="searchSeries">
+                         <label for="searchMovie">Enter a Series Name</label>
+                         <input class="form-control" id="searchMovie">
                        </div>
                       <button type="submit" class="btn btn-default" id="searchTop">Search</button>
                     </form>
@@ -118,8 +136,74 @@
                   <div class="chosenNotes"></div>
                   
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" id="firstModalFooter">
                     <button type="submit" data-dismiss="modal" class="btn btn-default" id="modalSubmit">Submit</button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- Modal personal movies clicked-->
+      <div class="modal fade" id="modelPersonalMovie" role="dialog">
+            <div class="modal-dialog modal-lg vertical-align-center">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title" id= "myMovieTitle"></h4>
+                </div>
+                <div class="modal-body">
+                  <div class="currentNotes">
+                    <div class="notesTitle">
+                      <h4> Notes:</h4>
+                    </div>
+
+                    <div class="notesBody">
+                    </div>
+                  </div>
+
+                    <!-- edit button -->
+                    <button class="btn btn-default buttonEdit">Edit</button>
+                    
+                    <!-- form is hidden -->
+                    <form id="personalMovie-form">
+                       <div class="form-group">
+                         <label for="changeCategory">Change Catagory</label>
+                         <select class="form-control" id="changeCategory">
+                            <option value= "futureSeries">What to Watch</option>
+                            <option value= "currentSeries">Currently Watching</option>
+                            <option value= "notCaughtUpSeries">Not Caught Up</option>
+                            <option value= "caughtUpSeries">Caught Up</option>
+                            <option value ="finishedSeries">Finished</option>
+                          </select>
+                          
+                          <br>
+
+                          <label for="editNotes">Edit Notes</label>
+                          <textarea rows= '5' id="editNotes" class='form-control'></textarea>
+                       </div>
+                      <button type="submit" class="btn btn-default" data-dismiss="modal" id="updateAll">Update</button>
+                    </form>
+
+                    <div class= "movieAjax">
+                      <div class= "actors">Actors: </div>
+                      <div class= "awards">Awards: </div>
+                      <div class= "boxOffice">Box Office: </div>
+                      <div class= "director">Director: </div>
+                      <div class= "genres">Genres: </div>
+                      <div class= "language">Languages: </div>
+                      <div class= "production">Production: </div>
+                      <div class= "rated">Rated: </div>
+                      <div class= "rating">IMDb Rating: </div>
+                      <div class= "runtime">Runtime: </div>
+                      <div class= "writer">Writers: </div>
+                      <div class= "yearMade">Year: </div>
+                      <div class= "web">Website: </div>
+                      <div class= "plot">Plot: </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" data-dismiss="modal" class="btn btn-danger" id="deleteMovieBtn">Delete Show</button>
                 </div>
               </div>
             </div>
@@ -128,6 +212,6 @@
     </div>
 
   <script src="js/series.js" type="text/javascript"></script>
-
 </body>
+
 </html>
