@@ -170,7 +170,7 @@ $(document).ready(function(){
     })
     .done(function() {
       console.log("put worked")
-     
+     window.location.href = "/movies";
     });
   }
 
