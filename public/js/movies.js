@@ -20,6 +20,12 @@ $(document).ready(function(){
 
 	var addArray= [];
 
+	//store value when user updates category
+	var changedCategory;
+	//store value when user updates Notes
+	var changedNotes;
+	var updateObj;
+	var id;
 
 	$('#addMovie').on("click", function() {
 	   $('#modelWindow').modal('show');
@@ -31,16 +37,27 @@ $(document).ready(function(){
 	//dynamically adding event listeners to dynamically created buttons
 	$(document.body).on('click', 'button#add', handleAdd);
 
+	//event listener for when user adds movie to the database
 	$("#modalSubmit").on("click", handleSubmit);
+
+	//event listen when the user clicks on a movie displayed on front end
+	$(document.body).on("click", '.block', handleMyMovie);
+
+	//show the form when the user clicks the edit button
+	$(".buttonEdit").on("click", function(){
+		event.preventDefault();
+		$("#personalMovie-form").toggle();
+		console.log("edit button");
+
+		$(".movieAjax").toggle();
+	});
+
+	$("#updateAll").on("click", handleUpdate);
+
+	$("#deleteMovieBtn").on("click", handleDelete);
 
 	//run as soon as the page loads. this populates sections with movie form Database
 	moviePopulator(); 
-
-	// $(".deleteButton").on("click", function(){
-	// });
-	// $(".updateButton").on("click", function(){
-	// }); 
-
 
 
 	//ajax request to pull data from the database/server
@@ -58,12 +75,28 @@ $(document).ready(function(){
 	      for(var i = 0; i< data.length; i++){
 	      	if(data[i].category =="future"){
 	      		//populate into future section using .html
-	      		$(".futureBody").append(data[i].title)
-	      		// $(".futureBody").append('img src=')
+
+	      		var futureDiv = $("<div>");
+	      		futureDiv.addClass("futureDiv" +i);
+	      		futureDiv.addClass("block");
+	      		var titleDiv = $("<h4>" + data[i].title + "</h4>");
+	      		var imgDiv = $("<img src= " + data[i].poster + "alt= 'poster' height= '200px' width= '200px'>");
+	      		futureDiv.append(titleDiv);
+	      		futureDiv.append(imgDiv);
+	      		$(".futureBody").append(futureDiv);
+
+	      		futureDiv.data("clickedData", data[i]);
+
+	      		// console.log(data[i].imdb_id)	
+	      		// var getBackMyJSON = $('.newclass1').data('results').title;
+					// console.log(getBackMyJSON)
+	      		console.log($('.futureDiv'+i).data('clickedData').imdb_id);
 
 	      	}
 	      	else if(data[i].category=="current"){
 	      		//populate into current section .html
+	      		
+
 	      	}
 	      	else if(data[i].category=="watched"){
 	      		//populate onto the watched section .html
@@ -72,6 +105,91 @@ $(document).ready(function(){
 	  })
 	}
 
+  function handleMyMovie(){
+  		var clickedData = $(this).data("clickedData")
+  		id = $(this).data("clickedData").imdb_id;
+
+  		console.log(id);
+  		console.log(typeof id);
+
+  		//show the modal
+  		$("#modelPersonalMovie").modal("show");
+  		//show the movie title
+  		$("#myMovieTitle").html(clickedData.title);
+
+  		//display current notes on the movis
+  		$(".notesBody").html(clickedData.notes);
+
+  		//hiddien once user clicks edit
+  		$("#editNotes").html(clickedData.notes);
+
+      $.ajax({
+          method: 'GET',
+          url: "/movie/" + id
+      }).done(function(data){
+         console.log(data);
+
+         $(".actors").html(data.actors); 
+         $(".awards").html(data.awards);
+         $(".boxOffice").html(data.boxoffice);
+         $(".director").html(data.director);
+         $(".genres").html(data.genres);
+         $(".language").html(data.languages);
+         $(".production").html(data.production);
+         $(".rated").html(data.rated);
+         $(".rating").html(data.rating);
+         $(".runtime").html(data.runtime);
+         $(".writer").html(data.writer);
+         $(".yearMade").html(data.year);
+         $(".web").html(data.website);
+         $(".plot").html(data.plot);
+
+      }).fail(function(err){
+      	console.log(err);
+      })
+  }
+
+  function handleUpdate(){
+
+  	changedCategory = $("#changeCategory").val();
+  	changedNotes = $("#editNotes").val();
+
+  	updateObj ={
+  		category: changedCategory,
+  		notes: changedNotes,
+  		imdb_id: id
+  	}
+
+  	console.log("RIGHT BEFORE THE ROUTE")
+
+    $.ajax({
+      method: "PUT",
+      url: "/api/movies",
+      data: updateObj
+    })
+    .done(function() {
+      console.log("put worked")
+     
+    });
+  }
+
+  function handleDelete(){
+
+  	updateObj ={
+  		imdb_id: id
+  	}
+
+  	
+  	$.ajax({
+      method: "DELETE",
+      url: "/api/movies",
+      data: updateObj
+    })
+    .done(function() {
+      console.log("delete worked")
+    });
+  }
+  
 
 	function movieSearch(searchMovie){
 		$.ajax({
@@ -130,8 +248,6 @@ $(document).ready(function(){
 		//reset the array for hold the movie object
 		addArray=[];
 
-		alert("FUCK OFF BITCH ");
-
 		//button
 		// console.log($(this));
 		//shows that the button is type of object
@@ -177,7 +293,7 @@ $(document).ready(function(){
 		newFormClass2.append(label2); 
 		chosenNotes.append(newFormClass2); 
 
-		$(".modal-footer").css("display", "block"); 
+		$("#firstModalFooter").css("display", "block"); 
 
 	} // handleAdd
 

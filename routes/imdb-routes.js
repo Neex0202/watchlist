@@ -13,8 +13,24 @@ module.exports= function(app){
 		}).catch(function(err) {
 			console.log(err);
 		});
-
 	});
+
+	 app.get('/movie/:id', function(req, res){
+	 	// console.log(String(req.params.id));
+
+	 	// console.log(typeof req.params.id);
+	 	// var string= "slfns";
+	 	// console.log(typeof string)
+
+	    imdb.getById(
+	       req.params.id,
+	       {
+	       	apiKey: '40e9cece'
+	       	// timeout: 30
+	       }).then(function(data) {
+	        res.send(data);
+	    })
+	})
 }
 
 

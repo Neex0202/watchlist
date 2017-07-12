@@ -72,8 +72,25 @@ ul{
 	text-align: center;
 }
 
-.modal-footer {
+#firstModalFooter {
     display: none;
 }
 
 
+.block{
+    float: left;
+    margin: 5px 15px 10px 10px;
+    text-align: center;
+}
+
+#personalMovie-form{
+    display: none;
+}
+
+.movieAjax{
+    display:block;
+}
+
+#deleteMovieBtn {
+    width: 100%;
+}
