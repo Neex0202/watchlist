@@ -73,9 +73,7 @@ $(document).ready(function(){
 	      $(".futureBody").empty();
 	      //populate movies onto front end
 	      for(var i = 0; i< data.length; i++){
-	      	if(data[i].category =="future"){
-	      		//populate into future section using .html
-
+	 
 	      		var futureDiv = $("<div>");
 	      		futureDiv.addClass("futureDiv" +i);
 	      		futureDiv.addClass("block");
@@ -83,23 +81,26 @@ $(document).ready(function(){
 	      		var imgDiv = $("<img src= " + data[i].poster + "alt= 'poster' height= '200px' width= '200px'>");
 	      		futureDiv.append(titleDiv);
 	      		futureDiv.append(imgDiv);
-	      		$(".futureBody").append(futureDiv);
 
 	      		futureDiv.data("clickedData", data[i]);
 
 	      		// console.log(data[i].imdb_id)	
-	      		// var getBackMyJSON = $('.newclass1').data('results').title;
-					// console.log(getBackMyJSON)
-	      		console.log($('.futureDiv'+i).data('clickedData').imdb_id);
+	      		// console.log($('.futureDiv'+i).data('clickedData').imdb_id);
+
+	      	// }//end first if
+	      	if(data[i].category =="future"){
+	      		//populate into future section using .html
+	      		futureContainer.append(futureDiv);
 
 	      	}
 	      	else if(data[i].category=="current"){
 	      		//populate into current section .html
-	      		
+	      		currentContainer.append(futureDiv);
 
 	      	}
-	      	else if(data[i].category=="watched"){
+	      	else if(data[i].category=="finished"){
 	      		//populate onto the watched section .html
+	      		finishedContainer.append(futureDiv);
 	      	}
 	      }
 	  })
@@ -187,7 +188,10 @@ $(document).ready(function(){
     })
     .done(function() {
       console.log("delete worked")
+      window.location.href = "/movies";
     });
+
+
   }
   
 
@@ -349,7 +353,7 @@ $(document).ready(function(){
 			console.log("posted data");	
 
 			//redirects us back to the movies html
-			// window.location.href = "/movies";
+			window.location.href = "/movies";
 
 		})
 	}//handle submitMovie
