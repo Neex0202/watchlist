@@ -36,4 +36,31 @@ module.exports= function(app){
 			console.log(err);
 		});
 	}); 
-}
+
+	app.put("/api/movies", function(req, res){
+
+    db.Movie.update({
+    	category: req.body.category,
+    	notes: req.body.notes
+    },
+
+        {
+            where: {
+                imdb_id: req.body.imdb_id
+            }
+
+        }).then(function(data){
+            res.json(data);
+       	})
+	});
+
+	app.delete("/api/movies", function(req, res) {
+		db.Movie.destroy({
+			where: {
+				imdb_id: req.body.imdb_id
+			}
+		}).then(function(data) {
+			res.json(data); 
+		});
+	});
+}//end module.exports
