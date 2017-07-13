@@ -6,6 +6,8 @@ var bodyParser = require("body-parser");
 var path = require("path"); 
 var mysql = require("mysql"); 
 var mysql2 = require("mysql2");
+var passport = require("passport");
+var session = require("express-session");
 
 //Express App
 var app = express();
@@ -23,6 +25,10 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 // Static directory
 app.use(express.static("./public"));
+
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Routes
 // =============================================================

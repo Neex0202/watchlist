@@ -4,11 +4,32 @@
 
 var path = require("path");
 
-module.exports = function(app) {
+// Requiring our custom middleware for checking if a user is logged in
+var isAuthenticated = require("../config/middleware/isAuthenticated");
 
-  app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/home.html"));
+module.exports = function(app) {
+  
+	app.get("/", function(req, res) {
+    // If the user already has an account send them to the members page
+    if (req.user) {
+      res.redirect("/members");
+    }
+    res.sendFile(path.join(__dirname, "../public/signup.html"));
   });
+
+
+  app.get("/login", function(req, res) {
+    // If the user already has an account send them to the members page
+    if (req.user) {
+      res.redirect("/members");
+    }
+    res.sendFile(path.join(__dirname, "../public/login.html"));
+  });
+
+//changed root
+  // app.get("/", function(req, res) {
+  //   res.sendFile(path.join(__dirname, "../public/home.html"));
+  // });
 
    app.get("/movies", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/movies.html"));
@@ -18,4 +39,16 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/series.html"));
   });
 
+
+    app.get("/members", isAuthenticated, function(req, res) {
+
+    	//CHANGED .sendfile to ../public/home.html instead of members.html
+    res.sendFile(path.join(__dirname, "../public/home.html"));
+
+
+  });
+
 };
+
+
+
