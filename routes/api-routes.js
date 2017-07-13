@@ -41,7 +41,8 @@ module.exports= function(app){
 
     db.Movie.update({
     	category: req.body.category,
-    	notes: req.body.notes
+    	notes: req.body.notes,
+    	poster: req.body.poster
     },
 
         {

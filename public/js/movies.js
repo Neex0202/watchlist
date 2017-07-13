@@ -2,6 +2,8 @@ $(document).ready(function(){
 
 	var searchContainer= $('.searchContainer');
 
+	var searchBody = $('.panelBlock');
+
 	var futureContainer=  $('.futureBody');
 
 	var currentContainer=  $('.currentBody');
@@ -78,7 +80,7 @@ $(document).ready(function(){
 	      		futureDiv.addClass("futureDiv" +i);
 	      		futureDiv.addClass("block");
 	      		var titleDiv = $("<h4>" + data[i].title + "</h4>");
-	      		var imgDiv = $("<img src= " + data[i].poster + "alt= 'poster' height= '200px' width= '200px'>");
+	      		var imgDiv = $("<img src= " + data[i].poster + "alt= 'poster' height= '300px' width= '200px'>");
 	      		futureDiv.append(titleDiv);
 	      		futureDiv.append(imgDiv);
 
@@ -130,20 +132,20 @@ $(document).ready(function(){
       }).done(function(data){
          console.log(data);
 
-         $(".actors").html(data.actors); 
-         $(".awards").html(data.awards);
-         $(".boxOffice").html(data.boxoffice);
-         $(".director").html(data.director);
-         $(".genres").html(data.genres);
-         $(".language").html(data.languages);
-         $(".production").html(data.production);
-         $(".rated").html(data.rated);
-         $(".rating").html(data.rating);
-         $(".runtime").html(data.runtime);
-         $(".writer").html(data.writer);
-         $(".yearMade").html(data.year);
-         $(".web").html(data.website);
-         $(".plot").html(data.plot);
+					$(".actors").html("Actors: " + data.actors); 
+					$(".awards").html("Awards: " + data.awards);
+					$(".boxOffice").html("Box Office: " + data.boxoffice);
+					$(".director").html("Director: " + data.director);
+					$(".genres").html("Genres: " + data.genres);
+					$(".language").html("Languages: " + data.languages);
+					$(".production").html("Production: " + data.production);
+					$(".rated").html("Rated: " + data.rated);
+					$(".rating").html("IMDb Rating: " + data.rating);
+					$(".runtime").html("Runtime: " + data.runtime);
+					$(".writer").html("Writers: " + data.writer);
+					$(".yearMade").html("Year: " + data.year);
+					$(".web").html("Website: " + data.website);
+					$(".plot").html("Plot: <br>" + data.plot);
 
       }).fail(function(err){
       	console.log(err);
@@ -180,7 +182,6 @@ $(document).ready(function(){
   		imdb_id: id
   	}
 
-  	
   	$.ajax({
       method: "DELETE",
       url: "/api/movies",
@@ -190,8 +191,6 @@ $(document).ready(function(){
       console.log("delete worked")
       window.location.href = "/movies";
     });
-
-
   }
   
 
@@ -206,23 +205,19 @@ $(document).ready(function(){
 
 			var results = data.results; 
 			searchContainer.empty(); 
-			var topSearch = []; 
 
 			for (var i = 0; i < results.length; i++) {
 				// topSearch.push(createSearchContainer(results[i])); 
 
-				var topSearchDiv = $("<div>");
-				topSearchDiv.addClass("panel panel-default");
-
-				var newClass = topSearchDiv.addClass("newclass" + i);
-
 				var newSearchbody = $("<div>");
-				newSearchbody.addClass("panel-body"); 
+				newSearchbody.addClass("searchBlock"); 
 
-				var newImg = $("<img src = " + results[i].poster + " alt= 'poster' height= '200px' width= '100px'>");
+				var newClass = newSearchbody.addClass("newclass" + i);
+
+				var newImg = $("<img src = " + results[i].poster + " alt= 'poster' height= '300px' width= '200px'>");
 				newSearchbody.append(newImg); 
 
-				var newTitle = $("<h3>"); 
+				var newTitle = $("<div class= titleText><h4>"); 
 				newTitle.text(results[i].title); 
 				newSearchbody.append(newTitle); 
 
@@ -230,22 +225,23 @@ $(document).ready(function(){
 				newYear.text(results[i].year); 
 				newSearchbody.append(newYear);  
 
-				var addBtn = $("<button>"); 
+				var addBtn = $("<button>").addClass("btn btn-success"); 
 				addBtn.text("Add"); 
 				addBtn.attr("id", "add"); 
 				newSearchbody.append(addBtn); 
-				topSearchDiv.append(newSearchbody);
 
-				topSearchDiv.data('results', results[i]);
+				newSearchbody.data('results', results[i]);
 
 				// console.log($('.newClass1').data('results'));
 
-				topSearch.push(topSearchDiv);
+				searchBody.append(newSearchbody);
+
+				searchContainer.append(searchBody);
 			}
-			searchContainer.append(topSearch); 
+
 			
 		}); 
-	}; //end movieSearch 
+	} //end movieSearch 
 
 	function handleAdd() {
 		// event.preventDefault(); 
@@ -260,7 +256,6 @@ $(document).ready(function(){
 		//target the selected div where the movie is stored. 'this' refers to the add button (which is an object!)
 		//** 'this' always refers to the value of an object	(invoking object) **
 	 	currentPosition = $(this)
-			.parent()
 			.parent()
 			.data("results")		
 
@@ -280,7 +275,7 @@ $(document).ready(function(){
 		var newFormClass = $("<div>").addClass("form-group");
 		var label = $("<label for= 'category' >Select Catagory:</label>"); 
 		var dropDown = $("<select class='form-control' id='category'>"); 
-		var option = $("<option value='future'>What to Watch</option><option value='current'>Currently Watching</option><option value='finished'>Finished Watching</option> </select>"); 
+		var option = $("<option value='future'>What to Watch</option><option value='current'>Where I Left Off</option><option value='finished'>Finished Watching</option> </select>"); 
 
 		dropDown.append(option); 
 		label.append(dropDown); 
@@ -361,6 +356,8 @@ $(document).ready(function(){
 	//christians help
 	function handleMovieFormSearch(event) {
 		event.preventDefault();
+
+		searchContainer.show()
 		var searchMovie = $("#searchMovie").val().trim();
 		movieSearch(searchMovie);
 	}; //handleMovieFormSubmit
