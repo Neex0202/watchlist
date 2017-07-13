@@ -12,20 +12,19 @@
    <!-- Latest compiled and minified CSS -->
    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet">
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-   
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
    <link rel="stylesheet" href="css/style.css" media="screen" title="no title">
-
-   
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
 
 <body>
-  <h2 class="animated bounce">Movies</h2>
-  <a href="./home.html" id="home" class="btn btn-primary btn-lg" role="button">Home</a>
+    <h2 class="animated bounce">Games</h2>
 
-  <div class="container-fluid">
-    <button id="addMovie" type="button" class="btn btn-info">Search Movies</button>
-    <!-- DIV PANEL for each FUTURE -->
+    <a href="./home.html" id="home" class="btn btn-primary btn-lg" role="button">Home</a>
+    <div class="container-fluid">
+
+      <button id="addMovie" type="button" class="btn btn-info">Search Games</button>
+
+   <!-- DIV PANEL for each FUTURE -->
     <div class="row">
         <div class= "col-xs-12">
 
@@ -33,7 +32,7 @@
             
             <div class="panel panel-default">
                 <div class="panel-heading">
-                  <h3 class="panel-title">What to Watch</h3>
+                  <h3 class="panel-title">What to Play</h3>
                 </div>
                 <div class="panel-body futureBody">
       
@@ -43,14 +42,14 @@
         </div>
     </div>
 
-    <!-- DIV PANEL for each CURRENT -->
+   <!-- DIV PANEL for each CURRENT -->
     <div class="row">
         <div class= "col-xs-12">
         <div class="current">
             
             <div class="panel panel-default">
                 <div class="panel-heading">
-                  <h3 class="panel-title">Where I Left Off</h3>
+                  <h3 class="panel-title">Currently Playing</h3>
                 </div>
                 <div class="panel-body currentBody"></div>
             </div>
@@ -58,13 +57,15 @@
         </div>
     </div>
 
-    <!-- DIV PANEL for each FINISHED ITEM -->
+
     <div class="row">
         <div class= "col-xs-12">
+             <!-- DIV PANEL for each FINISHED ITEM -->
         <div class="finished">
+            
             <div class="panel panel-default">
                 <div class="panel-heading">
-                  <h3 class="panel-title">Finished</h3>
+                  <h3 class="panel-title">Finished Playing</h3>
                 </div>
                 <div class="panel-body finishedBody"></div>
             </div>
@@ -73,43 +74,45 @@
     </div>
 
     <!-- Modal for search results -->
-    <div class="modal fade" id="modelWindow" role="dialog">
-      <div class="modal-dialog modal-lg vertical-align-center">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Add a Movie</h4>
-          </div>
+      <div class="modal fade" id="modelWindow" role="dialog">
+            <div class="modal-dialog modal-lg vertical-align-center">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Add a Game</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="movie-form">
+                       <div class="form-group">
+                         <label for="searchMovie">Enter a Game Name</label>
+                         <input class="form-control" id="searchMovie">
+                       </div>
+                      <button type="submit" class="btn btn-default" id="searchTop">Search</button>
+                    </form>
 
-          <div class="modal-body">
-            <form id="movie-form">
-               <div class="form-group">
-                 <label for="searchMovie">Enter a Movie Name</label>
-                 <input class="form-control" id="searchMovie">
-               </div>
-              <button type="submit" class="btn btn-default" id="searchTop">Search</button>
-            </form>
+                    <div class="panel panel-default searchContainer">
+                      <div class= "panel-body panelBlock">
+                        
+                      </div>
+                    </div>
 
-            <div class="panel panel-default searchContainer">
-              <div class= "panel-body panelBlock">
-                
+                  <br>
+                  <div class="chosenContainer"></div>
+
+                  <div class="chosenTitle"></div>
+                  <br>
+
+                  <div class="chosenCategory"></div>
+
+                  <div class="chosenNotes"></div>
+                  
+                </div>
+                <div class="modal-footer" id="firstModalFooter">
+                    <button type="submit" data-dismiss="modal" class="btn btn-default" id="modalSubmit">Submit</button>
+                </div>
               </div>
             </div>
-
-            <br>
-            <div class="chosenContainer"></div>
-            <div class="chosenTitle"></div>
-            <br>
-            <div class="chosenCategory"></div>
-            <div class="chosenNotes"></div>
-          </div>
-
-          <div class="modal-footer" id="firstModalFooter">
-            <button type="submit" data-dismiss="modal" class="btn btn-default" id="modalSubmit">Submit</button>
-          </div>
         </div>
-      </div>
-    </div>
 
         <!-- Modal personal movies clicked-->
       <div class="modal fade" id="modelPersonalMovie" role="dialog">
@@ -120,11 +123,10 @@
                   <h4 class="modal-title" id= "myMovieTitle"></h4>
                 </div>
                 <div class="modal-body">
-
                   <div class="currentNotes">
                     <div class="panel panel-primary">
                       <div class= "panel-heading notesTitle">
-                        <h4> Notes</h4>
+                        <h4>Notes</h4>
                       </div>
                       <div class= "panel-body notesBody">
                       </div>
@@ -139,9 +141,9 @@
                        <div class="form-group">
                          <label for="changeCategory">Change Catagory</label>
                          <select class="form-control" id="changeCategory">
-                            <option value= "future">What to Watch</option>
-                            <option value= "current">Where I Left Off</option>
-                            <option value ="finished">Finished</option>
+                            <option value= "futureGames">What to Play</option>
+                            <option value= "currentGames">Currently Playing</option>
+                            <option value ="finishedGames">Finished Playing</option>
                           </select>
                           
                           <br>
@@ -152,28 +154,9 @@
                       <button type="submit" class="btn btn-default" data-dismiss="modal" id="updateAll">Update</button>
                     </form>
 
-                   <div class= "movieAjax">
-                      <h3><b>Info<b></h3>
-
-                      <div class= "actors ajaxStyle"></div>
-                      <div class= "awards ajaxStyle"></div>
-                      <div class= "boxOffice ajaxStyle"></div>
-                      <div class= "director ajaxStyle"></div>
-                      <div class= "genres ajaxStyle"></div>
-                      <div class= "language ajaxStyle"></div>
-                      <div class= "production ajaxStyle"></div>
-                      <div class= "rated ajaxStyle"></div>
-                      <div class= "rating ajaxStyle"></div>
-                      <div class= "runtime ajaxStyle"></div>
-                      <div class= "writer ajaxStyle"></div>
-                      <div class= "yearMade ajaxStyle"></div>
-                      <div class= "seasons ajaxStyle"></div>
-                      <div class= "plot ajaxStyle"></div>
-                    </div>
-
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" data-dismiss="modal" class="btn btn-danger" id="deleteMovieBtn">Delete Movie</button>
+                    <button type="submit" data-dismiss="modal" class="btn btn-danger" id="deleteMovieBtn">Delete Game</button>
                 </div>
               </div>
             </div>
@@ -181,7 +164,7 @@
 
     </div>
 
-  <script src="js/movies.js" type="text/javascript"></script>
+  <script src="js/games.js" type="text/javascript"></script>
 </body>
 
 </html>

@@ -2,6 +2,8 @@ $(document).ready(function(){
 
 	var searchContainer= $('.searchContainer');
 
+	var searchBody = $('.panelBlock');
+
 	var futureContainer=  $('.futureBody');
 
 	var currentContainer=  $('.currentBody');
@@ -30,6 +32,9 @@ $(document).ready(function(){
 	var changedNotes;
 	var updateObj;
 	var id;
+
+	//if the poster of a show changes update database poster url
+	var changedPoster; 
 
 	$('#addMovie').on("click", function() {
 	   $('#modelWindow').modal('show');
@@ -82,7 +87,7 @@ $(document).ready(function(){
 	      		futureDiv.addClass("futureDiv" +i);
 	      		futureDiv.addClass("block");
 	      		var titleDiv = $("<h4>" + data[i].title + "</h4>");
-	      		var imgDiv = $("<img src= " + data[i].poster + "alt= 'poster' height= '200px' width= '200px'>");
+	      		var imgDiv = $("<img src= " + data[i].poster + "alt= 'poster' height= '300px' width= '200px'>");
 	      		futureDiv.append(titleDiv);
 	      		futureDiv.append(imgDiv);
 
@@ -140,20 +145,20 @@ $(document).ready(function(){
       }).done(function(data){
          console.log(data);
 
-         $(".actors").html(data.actors); 
-         $(".awards").html(data.awards);
-         $(".boxOffice").html(data.boxoffice);
-         $(".director").html(data.director);
-         $(".genres").html(data.genres);
-         $(".language").html(data.languages);
-         $(".production").html(data.production);
-         $(".rated").html(data.rated);
-         $(".rating").html(data.rating);
-         $(".runtime").html(data.runtime);
-         $(".writer").html(data.writer);
-         $(".yearMade").html(data.year);
-         $(".web").html(data.website);
-         $(".plot").html(data.plot);
+				$(".actors").html("Actors: " + data.actors); 
+				$(".awards").html("Awards: " + data.awards);
+				$(".director").html("Director: " + data.director);
+				$(".genres").html("Genres: " + data.genres);
+				$(".language").html("Languages: " + data.languages);
+				$(".rated").html("Rated: " + data.rated);
+				$(".rating").html("IMDb Rating: " + data.rating);
+				$(".runtime").html("Runtime: " + data.runtime);
+				$(".writer").html("Writers: " + data.writer);
+				$(".yearMade").html("Start Year: " + data.start_year);
+				$(".seasons").html("Seasons: " + data.totalseasons); 
+				$(".plot").html("Plot: <br><br>" + data.plot);
+
+				changedPoster = data.poster; 
 
       }).fail(function(err){
       	console.log(err);
@@ -168,6 +173,7 @@ $(document).ready(function(){
   	updateObj ={
   		category: changedCategory,
   		notes: changedNotes,
+  		poster: changedPoster, 
   		imdb_id: id
   	}
 
@@ -216,23 +222,19 @@ $(document).ready(function(){
 
 			var results = data.results; 
 			searchContainer.empty(); 
-			var topSearch = []; 
 
 			for (var i = 0; i < results.length; i++) {
 				// topSearch.push(createSearchContainer(results[i])); 
 
-				var topSearchDiv = $("<div>");
-				topSearchDiv.addClass("panel panel-default");
-
-				var newClass = topSearchDiv.addClass("newclass" + i);
-
 				var newSearchbody = $("<div>");
-				newSearchbody.addClass("panel-body"); 
+				newSearchbody.addClass("searchBlock"); 
 
-				var newImg = $("<img src = " + results[i].poster + " alt= 'poster' height= '200px' width= '100px'>");
+				var newClass = newSearchbody.addClass("newclass" + i);
+
+				var newImg = $("<img src = " + results[i].poster + " alt= 'poster' height= '300px' width= '200px'>");
 				newSearchbody.append(newImg); 
 
-				var newTitle = $("<h3>"); 
+				var newTitle = $("<div class= titleText><h4>"); 
 				newTitle.text(results[i].title); 
 				newSearchbody.append(newTitle); 
 
@@ -240,22 +242,26 @@ $(document).ready(function(){
 				newYear.text(results[i].year); 
 				newSearchbody.append(newYear);  
 
-				var addBtn = $("<button>"); 
+				var addBtn = $("<button>").addClass("btn btn-success"); 
 				addBtn.text("Add"); 
 				addBtn.attr("id", "add"); 
 				newSearchbody.append(addBtn); 
-				topSearchDiv.append(newSearchbody);
 
-				topSearchDiv.data('results', results[i]);
+				newSearchbody.data('results', results[i]);
 
 				// console.log($('.newClass1').data('results'));
 
-				topSearch.push(topSearchDiv);
+				searchBody.append(newSearchbody);
+
+				searchContainer.append(searchBody);
+
+				$("#searchTest").append(searchContainer);
 			}
-			searchContainer.append(topSearch); 
+
 			
 		}); 
-	}; //end movieSearch 
+	} //end movieSearch 
+
 
 	function handleAdd() {
 		// event.preventDefault(); 
@@ -270,7 +276,6 @@ $(document).ready(function(){
 		//target the selected div where the movie is stored. 'this' refers to the add button (which is an object!)
 		//** 'this' always refers to the value of an object	(invoking object) **
 	 	currentPosition = $(this)
-			.parent()
 			.parent()
 			.data("results")		
 
@@ -370,7 +375,10 @@ $(document).ready(function(){
 
 	//christians help
 	function handleMovieFormSearch(event) {
-		event.preventDefault();
+		event.preventDefault();	
+
+		searchContainer.show()
+		//show the panel body once user clicks search;
 		var searchMovie = $("#searchMovie").val().trim();
 		movieSearch(searchMovie);
 	}; //handleMovieFormSubmit
