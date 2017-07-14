@@ -1,5 +1,5 @@
 body {
-	background-image: url("http://www.jalsolution.com/oldsite/slides/background3.jpeg");
+    background-image: url("http://www.jalsolution.com/oldsite/slides/background3.jpeg");
 }
 
 h1 {
@@ -11,9 +11,6 @@ h1 {
     kerning: 5px;
     letter-spacing: 5px;
     margin-top: 250px;
-    
-
-
 }
 
 h2 {
@@ -26,34 +23,34 @@ h2 {
     kerning: 5px;
     letter-spacing: 5px;
     margin-top: 50px;
-    
 }
 
 
-#movie{
-	position: relative;
-	top: 50%;
-	left: 35%;
-	margin-top: 35px;
-	margin-right: 25px;
-
+#movie {
+    position: relative;
+    top: 50%;
+    left: 35%;
+    margin-top: 35px;
+    margin-right: 25px;
 }
 
-#series{
-	position: relative;
-	top: 50%;
-	left: 40%;
-	margin-top: 35px;
-	margin-left: 25px;
-
+#series {
+    position: relative;
+    top: 50%;
+    left: 40%;
+    margin-top: 35px;
+    margin-left: 25px;
 }
+
 
 /*Movies & Series Page*/
-#dropmenu{
-	position: relative;
-	align-self: center;
-	/*left:40%;*/
+
+#dropmenu {
+    position: relative;
+    align-self: center;
+    /*left:40%;*/
 }
+
 .dropdown {
     text-align: center;
 }
@@ -63,13 +60,13 @@ h2 {
     top: 50%;
 }
 
-.panel{
-	margin-top: 15px;
+.panel {
+    margin-top: 15px;
 }
 
-ul{
-	position: absolute;
-	text-align: center;
+ul {
+    position: absolute;
+    text-align: center;
 }
 
 #firstModalFooter {
@@ -77,7 +74,7 @@ ul{
 }
 
 
-.block{
+.block {
     float: left;
     margin: 5px 15px 10px 10px;
     text-align: center;
@@ -85,23 +82,23 @@ ul{
 
 .searchBlock {
     float: left;
-    text-align: center; 
+    text-align: center;
     margin: 5px 15px 10px 10px;
 }
 
-#personalMovie-form{
+#personalMovie-form {
     display: none;
 }
 
-.movieAjax{
-    display:block;
+.movieAjax {
+    display: block;
 }
 
 #deleteMovieBtn {
     width: 100%;
 }
 
-#home{
+#home {
     position: relative;
     top: 50%;
     left: 44%;
@@ -109,23 +106,23 @@ ul{
     margin-left: 25px;
 }
 
-.searchContainer{
+.searchContainer {
     display: none;
 }
 
 .movieAjax {
     margin-top: 10px;
     padding: 10px;
-    border: 2px solid; 
-    border-color: #2c3e50; 
+    border: 2px solid;
+    border-color: #2c3e50;
     color: black;
     border-radius: 6px;
 }
 
 .modal-header {
-    background-color: #2c3e50; 
+    background-color: #2c3e50;
     color: white;
-    text-align: center; 
+    text-align: center;
 }
 
 .ajaxStyle {
@@ -133,7 +130,7 @@ ul{
 }
 
 .plot {
-    line-height: 30px; 
+    line-height: 30px;
 }
 
 .titleText {
