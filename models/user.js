@@ -17,7 +17,21 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false
         }
-    });
+    },      // We're saying that we want our Author to have Posts
+        {
+            classMethods: {
+        associate: function(models) {
+          // Associating Author with Posts
+          // When an Author is deleted, also delete any associated Posts
+          User.hasMany(models.Movie, {
+            onDelete: "cascade"
+          });
+        }
+      }
+    }
+
+
+    );
 
     //prototype method/function for User model--comparison check between unhashed password and hashed password in mySQL DB
     User.prototype.validPassword = function(password) {

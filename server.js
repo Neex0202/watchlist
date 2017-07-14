@@ -26,7 +26,7 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 //Using instance of express to use sessions package to track login (from passport)
-app.use(session({ secret: "keyboard cat", resave: true, saveUninitiailized: true}));
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitiailized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
