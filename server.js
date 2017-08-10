@@ -2,6 +2,10 @@
 
 var express = require("express");
 var bodyParser = require("body-parser");
+var session = require("express-session");
+
+// Requiring passport configuration
+var passport = require("./config/passport");
 
 var path = require("path");
 var mysql = require("mysql");
@@ -20,6 +24,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
+
+//Using instance of express to use sessions package to track login (from passport)
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitiailized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Static directory
 app.use(express.static("./public"));
